@@ -1,7 +1,25 @@
-
+import { useState } from 'react'
 import './App.css'
 
+type pokemonStatsType = {
+  name: string,
+  height: number,
+  weight: number,
+  stats: {
+    hp: number,
+    attack: number,
+    defense: number,
+    specialAttack: number,
+    specialDefense: number,
+    speed: number,
+  }
+}
+
 function App() {
+  
+  const [errorMessage,setErrorMessage] = useState('');
+  const [pokemonStats, setPokemonStats] = useState<(pokemonStatsType) | null>(null);
+
   return (
     <>
       <header className='heading'>Pokemon Benchmark</header>
