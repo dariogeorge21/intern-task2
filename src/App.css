@@ -51,8 +51,7 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.benchmarkContainer,
-.arenaContainer {
+.benchmarkContainer, .arenaContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -61,8 +60,7 @@ body {
 }
 
 
-.card,
-.arenaCard {
+.benchmarkCard, .arenaCard {
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
   width: 280px;
@@ -75,13 +73,12 @@ body {
   text-align: center;
 }
 
-.card:hover,
-.arenaCard:hover {
+.benchmarkCard:hover, .arenaCard:hover {
   transform: translateY(-5px);
 }
 
 
-.shuffle {
+.button {
   max-width: 100%;
   padding: 0.8rem;
   margin: 0 auto;
@@ -98,7 +95,7 @@ body {
   justify-content: center;
 }
 
-/* Error Message */
+
 .errorContainer {
   margin-top: 1.5rem;
   padding: 1rem;
@@ -109,7 +106,7 @@ body {
   border-radius: 6px;
 }
 
-/* Optional Horizontal Rule */
+
 .hr {
   height: 2px;
   background-color: #000;

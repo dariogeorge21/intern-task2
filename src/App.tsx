@@ -15,9 +15,11 @@ type PokemonStatsType = {
   speed: number;
 };
 
+
 function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [allStats, setAllStats] = useState<PokemonStatsType[]>([]);
+  const [benchmarkPokemon, setBenchmarkPokemon] = useState<PokemonStatsType[]>([]);
 
   async function multiFetch() {
     setAllStats([]);
@@ -65,6 +67,41 @@ function App() {
     multiFetch();
   }, []);
 
+  async function addToBenchmark(id:number) {
+    if ((benchmarkPokemon.length)>5){
+      alert("You can only add upto 6 cards!!");
+      return;
+    }
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        if (!response.ok) throw new Error('Failed to fetch data from API!');
+
+        const data: any = await response.json();
+
+        const compareStats: PokemonStatsType = {
+          id: data.id,
+          sprite: data.sprites.front_default,
+          name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
+          height: data.height,
+          weight: data.weight,
+          hp: data.stats[0].base_stat,
+          attack: data.stats[1].base_stat,
+          defense: data.stats[2].base_stat,
+          specialAttack: data.stats[3].base_stat,
+          specialDefense: data.stats[4].base_stat,
+          speed: data.stats[5].base_stat
+        };
+        setBenchmarkPokemon(prev => [...prev, compareStats]);
+
+
+    } catch (error) {
+      if (error instanceof Error) {
+          console.error(error.message);
+          setErrorMessage(error.message);
+        }
+    }
+  }
+
   return (
     <>
       <header className='heading'>Pokemon Benchmark</header>
@@ -76,24 +113,9 @@ function App() {
       </div>
       </div>
       <div className='benchmarkContainer'>
-        <div className='card'></div>
-        <div className='card'></div>
-        <div className='card'></div>
-        <div className='card'></div>
-        <div className='card'></div>
-        <div className='card'></div>
-      </div>
-      <br />
-      <hr className='hr' />
-      <div className="subHead">
-        <h2 >Pokemon Arena</h2>
-      </div>
-      <button className="shuffle" onClick={multiFetch}>Shuffle</button>
-    
-      
-      <div className='arenaContainer'>
-        {allStats.map((pokemon, index) => (
-          <div key={index} className='arenaCard'>
+        {benchmarkPokemon.map((pokemon,index) => (
+          <div key={index} className="benchmarkCard">
+            <p hidden>Id: {pokemon.id}</p>
             <img src={pokemon.sprite} alt="sprite" />
             <h2>{pokemon.name}</h2>
             <p>HP: {pokemon.hp}</p>
@@ -101,6 +123,31 @@ function App() {
             <p>Defense: {pokemon.defense}</p>
             <p>Height: {pokemon.height}</p>
             <p>Weight: {pokemon.weight}</p>
+            <br />
+          </div>
+        ))}
+      </div>
+      <br />
+      <hr className='hr' />
+      <div className="subHead">
+        <h2 >Pokemon Arena</h2>
+      </div>
+      <button className="button" onClick={multiFetch}>Shuffle</button>
+    
+      
+      <div className='arenaContainer'>
+        {allStats.map((pokemon, index) => (
+          <div key={index} className='arenaCard'>
+            <p hidden>Id: {pokemon.id}</p>
+            <img src={pokemon.sprite} alt="sprite" />
+            <h2>{pokemon.name}</h2>
+            <p>HP: {pokemon.hp}</p>
+            <p>Attack: {pokemon.attack}</p>
+            <p>Defense: {pokemon.defense}</p>
+            <p>Height: {pokemon.height}</p>
+            <p>Weight: {pokemon.weight}</p>
+            <br />
+            <button onClick={() => addToBenchmark(pokemon.id)} className="button">Add to Compare</button>
           </div>
         ))}
         {errorMessage && <p className='errorContainer'>Error: {errorMessage}</p>}
