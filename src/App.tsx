@@ -22,13 +22,15 @@ function App() {
   const [allStats, setAllStats] = useState<PokemonStatsType[]>([]);
   const [benchmarkPokemon, setBenchmarkPokemon] = useState<PokemonStatsType[]>([]);
 
-  
+  function reloadPage() {
+    location.reload();
+  }
 
   async function multiFetch() {
     setAllStats([]);
     setErrorMessage('');
 
-    const fetches = Array.from({ length: 16 }, async () => {
+    const fetches = Array.from({ length: 18 }, async () => {
       const randomNumber = Math.floor(Math.random() * 151) + 1;
 
       try {
@@ -145,6 +147,8 @@ function App() {
           <p className="myStats">Total Height: {totals.totalHeight}</p>
           <p className="myStats">Total Weight: {totals.totalWeight}</p>
         </div>
+        <button onClick={reloadPage} className='button'>Reset</button>
+
       </div>
       </div>
       <div className='benchmarkContainer'>
