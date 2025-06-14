@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import type {PokemonStatsType}  from './types/types';
+import Header from './components/header';
 import './App.css';
 
 function App() {
@@ -7,10 +8,11 @@ function App() {
   const [allStats, setAllStats] = useState<PokemonStatsType[]>([]);
   const [benchmarkPokemon, setBenchmarkPokemon] = useState<PokemonStatsType[]>([]);
 
-  function reloadPage() {
-    location.reload();
-  }
-
+  function reset() {
+  setAllStats([]);
+  setBenchmarkPokemon([]);
+  multiFetch();
+}
   async function multiFetch() {
     setAllStats([]);
     setErrorMessage('');
@@ -37,8 +39,8 @@ function App() {
           specialDefense: data.stats[4].base_stat,
           speed: data.stats[5].base_stat
         };
-
         return stats;
+
       } catch (error) {
         if (error instanceof Error) {
           console.error(error.message);
@@ -62,6 +64,9 @@ function App() {
       alert("You can only add upto 6 cards!!");
       return;
     }
+    setAllStats([]);
+    setErrorMessage('');
+
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
         if (!response.ok) throw new Error('Failed to fetch data from API!');
@@ -90,7 +95,7 @@ function App() {
           setErrorMessage(error.message);
         }
     }
-  }console.log(benchmarkPokemon);
+  }
 
   const totals = {
     totalHeight: 0,
@@ -103,21 +108,20 @@ function App() {
     totalSpeed: 0,
   }
 
-  for (const key in benchmarkPokemon){
-    totals.totalHp += benchmarkPokemon[key].hp,
-    totals.totalHeight += benchmarkPokemon[key].height,
-    totals.totalWeight += benchmarkPokemon[key].weight,
-    totals.totalAttack += benchmarkPokemon[key].attack,
-    totals.totalDefense += benchmarkPokemon[key].defense,
-    totals.totalSpecialAttack += benchmarkPokemon[key].specialAttack,
-    totals.totalSpecialDefense += benchmarkPokemon[key].specialDefense,
-    totals.totalSpeed += benchmarkPokemon[key].speed
-  }
+  benchmarkPokemon.forEach(pokemon => {
+  totals.totalHp += pokemon.hp;
+  totals.totalHeight += pokemon.height;
+  totals.totalWeight += pokemon.weight;
+  totals.totalAttack += pokemon.attack;
+  totals.totalDefense += pokemon.defense;
+  totals.totalSpecialAttack += pokemon.specialAttack;
+  totals.totalSpecialDefense += pokemon.specialDefense;
+  totals.totalSpeed += pokemon.speed;
+});
 
   return (
     <>
-      <header className='heading'>Pokemon Benchmark</header>
-
+      <Header/>
       <hr className='hr' />
       <div className="statsSection">
         <div className="statsBoard">
@@ -134,8 +138,7 @@ function App() {
           <p className="myStats">Total Height: {totals.totalHeight}</p>
           <p className="myStats">Total Weight: {totals.totalWeight}</p>
         </div>
-        <button onClick={reloadPage} className='button'>Reset</button>
-
+        <button onClick={reset} className='button'>Reset</button>
       </div>
       </div>
 
