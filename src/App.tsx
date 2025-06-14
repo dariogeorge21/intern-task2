@@ -16,10 +16,13 @@ type PokemonStatsType = {
 };
 
 
+
 function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [allStats, setAllStats] = useState<PokemonStatsType[]>([]);
   const [benchmarkPokemon, setBenchmarkPokemon] = useState<PokemonStatsType[]>([]);
+
+  
 
   async function multiFetch() {
     setAllStats([]);
@@ -100,6 +103,28 @@ function App() {
           setErrorMessage(error.message);
         }
     }
+  }console.log(benchmarkPokemon);
+
+  const totals = {
+    totalHeight: 0,
+    totalWeight: 0,
+    totalHp: 0,
+    totalAttack: 0,
+    totalDefense: 0,
+    totalSpecialAttack: 0,
+    totalSpecialDefense: 0,
+    totalSpeed: 0,
+  }
+
+  for (const key in benchmarkPokemon){
+    totals.totalHp += benchmarkPokemon[key].hp,
+    totals.totalHeight += benchmarkPokemon[key].height,
+    totals.totalWeight += benchmarkPokemon[key].weight,
+    totals.totalAttack += benchmarkPokemon[key].attack,
+    totals.totalDefense += benchmarkPokemon[key].defense,
+    totals.totalSpecialAttack += benchmarkPokemon[key].specialAttack,
+    totals.totalSpecialDefense += benchmarkPokemon[key].specialDefense,
+    totals.totalSpeed += benchmarkPokemon[key].speed
   }
 
   return (
@@ -110,6 +135,16 @@ function App() {
       <div className="statsSection">
         <div className="statsBoard">
         <h2 className="subHead">Statistics</h2>
+        <div className="allStats">
+          <p className="myStats">Total HP: {totals.totalHp}</p>
+          <p className="myStats">Total Speed: {totals.totalSpeed}</p>
+          <p className="myStats">Total Defense: {totals.totalDefense}</p>
+          <p className="myStats">Total Attack: {totals.totalAttack}</p>
+          <p className="myStats">Total Special Attack: {totals.totalSpecialAttack}</p>
+          <p className="myStats">Total Special Defense: {totals.totalSpecialDefense}</p>
+          <p className="myStats">Total Height: {totals.totalHeight}</p>
+          <p className="myStats">Total Weight: {totals.totalWeight}</p>
+        </div>
       </div>
       </div>
       <div className='benchmarkContainer'>
