@@ -1,21 +1,6 @@
 import { useState, useEffect } from 'react';
+import type {PokemonStatsType}  from './types/types';
 import './App.css';
-
-type PokemonStatsType = {
-  id: number;
-  sprite: string;
-  name: string;
-  height: number;
-  weight: number;
-  hp: number;
-  attack: number;
-  defense: number;
-  specialAttack: number;
-  specialDefense: number;
-  speed: number;
-};
-
-
 
 function App() {
   const [errorMessage, setErrorMessage] = useState('');
