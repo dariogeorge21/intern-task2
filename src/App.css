@@ -30,6 +30,10 @@ body {
   padding: 1rem;
   font-weight: 500;
 }
+.statsBoard p{
+  text-align: center;
+  padding: 1rem;
+}
 
 .statsBoard {
   width: 100%;

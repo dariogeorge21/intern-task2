@@ -30,7 +30,7 @@ function App() {
     setAllStats([]);
     setErrorMessage('');
 
-    const fetches = Array.from({ length: 18 }, async () => {
+    const fetches = Array.from({ length: 36 }, async () => {
       const randomNumber = Math.floor(Math.random() * 151) + 1;
 
       try {
@@ -136,7 +136,9 @@ function App() {
       <hr className='hr' />
       <div className="statsSection">
         <div className="statsBoard">
+
         <h2 className="subHead">Statistics</h2>
+        <p>Checkout the arena and add cards</p>
         <div className="allStats">
           <p className="myStats">Total HP: {totals.totalHp}</p>
           <p className="myStats">Total Speed: {totals.totalSpeed}</p>
@@ -151,6 +153,7 @@ function App() {
 
       </div>
       </div>
+
       <div className='benchmarkContainer'>
         {benchmarkPokemon.map((pokemon,index) => (
           <div key={index} className="benchmarkCard">
@@ -186,7 +189,7 @@ function App() {
             <p>Height: {pokemon.height}</p>
             <p>Weight: {pokemon.weight}</p>
             <br />
-            <button onClick={() => addToBenchmark(pokemon.id)} className="button">Add to Compare</button>
+            <button onClick={() => addToBenchmark(pokemon.id) } className="button">Add to Compare</button>
           </div>
         ))}
         {errorMessage && <p className='errorContainer'>Error: {errorMessage}</p>}
