@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type {PokemonStatsType}  from './types/types';
 import Header from './components/header';
+import Footer from './components/footer';
 import './App.css';
 
 function App() {
@@ -64,7 +65,6 @@ function App() {
       alert("You can only add upto 6 cards!!");
       return;
     }
-    setAllStats([]);
     setErrorMessage('');
 
     try {
@@ -97,6 +97,8 @@ function App() {
     }
   }
 
+  
+
   const totals = {
     totalHeight: 0,
     totalWeight: 0,
@@ -123,24 +125,24 @@ function App() {
     <>
       <Header/>
       <hr className='hr' />
-      <div className="statsSection">
+      {benchmarkPokemon.length > 0 ? <div className="statsSection">
         <div className="statsBoard">
 
-        <h2 className="subHead">Statistics</h2>
-        <p>Checkout the arena and add cards</p>
-        <div className="allStats">
-          <p className="myStats">Total HP: {totals.totalHp}</p>
-          <p className="myStats">Total Speed: {totals.totalSpeed}</p>
-          <p className="myStats">Total Defense: {totals.totalDefense}</p>
-          <p className="myStats">Total Attack: {totals.totalAttack}</p>
-          <p className="myStats">Total Special Attack: {totals.totalSpecialAttack}</p>
-          <p className="myStats">Total Special Defense: {totals.totalSpecialDefense}</p>
-          <p className="myStats">Total Height: {totals.totalHeight}</p>
-          <p className="myStats">Total Weight: {totals.totalWeight}</p>
+          <h2 className="subHead">Statistics</h2>
+          <div className="allStats">
+            <p className="myStats">Total HP: {totals.totalHp}</p>
+            <p className="myStats">Total Speed: {totals.totalSpeed}</p>
+            <p className="myStats">Total Defense: {totals.totalDefense}</p>
+            <p className="myStats">Total Attack: {totals.totalAttack}</p>
+            <p className="myStats">Total Special Attack: {totals.totalSpecialAttack}</p>
+            <p className="myStats">Total Special Defense: {totals.totalSpecialDefense}</p>
+            <p className="myStats">Total Height: {totals.totalHeight}</p>
+            <p className="myStats">Total Weight: {totals.totalWeight}</p>
+          </div>
+          <button onClick={reset} className='button'>Reset</button>
         </div>
-        <button onClick={reset} className='button'>Reset</button>
-      </div>
-      </div>
+      </div> :
+          <p className='fulfill'>Checkout the arena and add cards to calculate</p>}
 
       <div className='benchmarkContainer'>
         {benchmarkPokemon.map((pokemon,index) => (
@@ -182,6 +184,7 @@ function App() {
         ))}
         {errorMessage && <p className='errorContainer'>Error: {errorMessage}</p>}
       </div>
+      <Footer/>
     </>
   );
 }

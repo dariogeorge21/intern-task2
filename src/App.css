@@ -9,7 +9,7 @@
 
 body {
   height: 100vh;
-  padding: 1rem;
+  padding: 0rem;
   background-color: #4b4040;
   color: #000;
 }
@@ -78,7 +78,6 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
   text-align: center;
-  
 }
 
 .card:hover {
@@ -114,4 +113,29 @@ body {
   background: #000;
   margin: 1rem 0;
   border: none;
+}
+.fulfill{
+  font-size: x-large;
+  text-align: center;
+  margin-top: 60px;
+}
+.footer{
+    background-color: #000000;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+.footer p{
+    font-size: 1rem;
+    margin: 0;
+}
+.footer a{
+    color: #229225;
+    text-decoration: none;
+}
+.footer a:hover{
+    text-decoration: underline;
 }
