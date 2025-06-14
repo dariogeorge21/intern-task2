@@ -130,7 +130,7 @@ function App() {
   return (
     <>
       <header className='heading'>Pokemon Benchmark</header>
-      <br />
+
       <hr className='hr' />
       <div className="statsSection">
         <div className="statsBoard">
@@ -158,7 +158,7 @@ function App() {
             <p>Defense: {pokemon.defense}</p>
             <p>Height: {pokemon.height}</p>
             <p>Weight: {pokemon.weight}</p>
-            <br />
+      
           </div>
         ))}
       </div>
