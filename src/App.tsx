@@ -70,7 +70,11 @@ function App() {
       <header className='heading'>Pokemon Benchmark</header>
       <br />
       <hr className='hr' />
-      <h2 className='subHead'>Benchmark Area</h2>
+      <div className="statsSection">
+        <div className="statsBoard">
+        <h2 className="subHead">Statistics</h2>
+      </div>
+      </div>
       <div className='benchmarkContainer'>
         <div className='card'></div>
         <div className='card'></div>
