@@ -9,6 +9,7 @@ function App() {
   const [allStats, setAllStats] = useState<PokemonStatsType[]>([]);
   const [benchmarkPokemon, setBenchmarkPokemon] = useState<PokemonStatsType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState('');
   const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
   });
@@ -26,9 +27,8 @@ function App() {
   setAllStats([]);
   setBenchmarkPokemon([]);
   multiFetch();
-}
+  }
 
-  
   async function multiFetch() {
     setLoading(false);
     setAllStats([]);
@@ -95,11 +95,7 @@ function App() {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
         if (!response.ok) throw new Error('Failed to fetch data from API!');
-
         const data: any = await response.json();
-
-    
-
         const compareStats: PokemonStatsType = {
           id: data.id,
           sprite: data.sprites.front_default,
@@ -114,14 +110,12 @@ function App() {
           speed: data.stats[5].base_stat,
           type: data.types[0].type.name,
         };
-        
         for (let element = 0; element < benchmarkPokemon.length; element++) {
           if (benchmarkPokemon[element].id === compareStats.id) {
             alert("Aldready Added!!");
             return ;
           }
         }
-
         setBenchmarkPokemon(prev => [...prev, compareStats]);
 
 
@@ -156,6 +150,10 @@ function App() {
   totals.totalSpecialDefense += pokemon.specialDefense;
   totals.totalSpeed += pokemon.speed;
 });
+
+  const filteredStats = allStats.filter(pokemon =>
+  pokemon.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
     <>
@@ -209,12 +207,19 @@ function App() {
       <div className="subHead">
         <h2 >Pokemon Arena</h2>
       </div>
+      
+      <input
+        type="text"
+        placeholder="Search pokemons..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="search-bar"
+      />
       <button className="button" onClick={multiFetch}>Randomize</button>
       {(loading)? '':<div className='subHead' >Loading...</div>}
     
-      
       <div className='arenaContainer'>
-        {allStats.map((pokemon, index) => (
+        {filteredStats.map((pokemon, index) => (
           <div key={index} className='arenaCard'>
             <p hidden>Id: {pokemon.id}</p>
             <p className='tag'>{pokemon.type}</p>

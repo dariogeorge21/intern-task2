@@ -12,3 +12,4 @@ export type PokemonStatsType = {
   speed: number;
   type: string;
 };
+
