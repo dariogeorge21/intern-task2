@@ -213,7 +213,7 @@ function App() {
         <h2 >Pokemon Arena</h2>
       </div>
       
-      <div>
+      <div className='search-container'>
         <input
         type="text"
         placeholder="Search pokemons..."
