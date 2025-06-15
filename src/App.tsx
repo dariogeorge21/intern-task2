@@ -8,6 +8,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [allStats, setAllStats] = useState<PokemonStatsType[]>([]);
   const [benchmarkPokemon, setBenchmarkPokemon] = useState<PokemonStatsType[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
   });
@@ -29,10 +30,11 @@ function App() {
 
   
   async function multiFetch() {
+    setLoading(false);
     setAllStats([]);
     setErrorMessage('');
     const randomIdArray: number[] = [];
-    while (randomIdArray.length < 36) {
+    while (randomIdArray.length < 50) {
       const randomNumber = Math.floor(Math.random() * 151) + 1;
       if (!randomIdArray.includes(randomNumber)) {
       randomIdArray.push(randomNumber);
@@ -59,7 +61,8 @@ function App() {
           defense: data.stats[2].base_stat,
           specialAttack: data.stats[3].base_stat,
           specialDefense: data.stats[4].base_stat,
-          speed: data.stats[5].base_stat
+          speed: data.stats[5].base_stat,
+          type: data.types[0].type.name,
         };
         return stats;
 
@@ -75,6 +78,7 @@ function App() {
     const results = await Promise.all(fetches);
     const filteredResults = results.filter((res): res is PokemonStatsType => res !== null);
     setAllStats(filteredResults);
+    setLoading(true);
   }
 
   useEffect(() => {
@@ -107,7 +111,8 @@ function App() {
           defense: data.stats[2].base_stat,
           specialAttack: data.stats[3].base_stat,
           specialDefense: data.stats[4].base_stat,
-          speed: data.stats[5].base_stat
+          speed: data.stats[5].base_stat,
+          type: data.types[0].type.name,
         };
         
         for (let element = 0; element < benchmarkPokemon.length; element++) {
@@ -203,13 +208,15 @@ function App() {
       <div className="subHead">
         <h2 >Pokemon Arena</h2>
       </div>
-      <button className="button" onClick={multiFetch}>Shuffle</button>
+      <button className="button" onClick={multiFetch}>Randomize</button>
+      {(loading)? '':<div className='subHead' >Loading...</div>}
     
       
       <div className='arenaContainer'>
         {allStats.map((pokemon, index) => (
           <div key={index} className='arenaCard'>
             <p hidden>Id: {pokemon.id}</p>
+            <p className='tag'>{pokemon.type}</p>
             <img src={pokemon.sprite} alt="sprite" />
             <h2>{pokemon.name}</h2>
             <p>HP: {pokemon.hp}</p>

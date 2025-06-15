@@ -10,4 +10,5 @@ export type PokemonStatsType = {
   specialAttack: number;
   specialDefense: number;
   speed: number;
+  type: string;
 };

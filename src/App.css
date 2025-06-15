@@ -174,3 +174,9 @@ body.dark {
   display: flex;
   gap: 10px;
 }
+.tag{
+  background-color: rgba(107, 117, 92, 0.466);
+  border-radius: 16px;
+  min-width: 100px;
+  text-align: center;
+}
