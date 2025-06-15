@@ -1,54 +1,58 @@
-# React + TypeScript + Vite
+# 🧪 Pokémon Stats Arena - Team Builder & Benchmark Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Project Banner](https://img.shields.io/badge/Built%20With-React-blue?style=flat-square)  
+**Live Demo:** [task2-intern-mmp.netlify.app](https://task2-intern-mmp.netlify.app/)
 
-Currently, two official plugins are available:
+A sleek and powerful React application that lets users:
+- 🔍 Search and filter Pokémon.
+- 🧩 Build a benchmark team of up to 6 Pokémon.
+- 📊 Compare cumulative stats like HP, Attack, Defense, etc.
+- 💡 Toggle between Light and Dark themes.
+- 💾 Persist selected team across sessions using `localStorage`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🎯 Arena Highlights:
+- Randomly fetches 50 Pokémons from Gen 1 (Kanto).
+- View detailed stats like HP, Speed, Attack, Defense, and Type.
+- Add Pokémon to your **Benchmark Team** with a single click.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 📊 Benchmark Stats:
+- Real-time aggregation of team stats.
+- Max limit of 6 Pokémon (as per classic rules).
+- Duplicate prevention and visual card-based team display.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 🌗 Theme Toggle:
+- Switch between Dark and Light modes.
+- Theme preference stored in `localStorage`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 🔍 Search & Filter:
+- 🔎 Real-time search by Pokémon name.
+- ⛏️ Filter by Pokémon Type using a dropdown.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 💾 Persistence:
+- Benchmark team is stored in `localStorage`.
+- Auto-restores team after refresh or re-visit.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend Framework**: React + TypeScript
+- **API**: [PokéAPI](https://pokeapi.co/)
+- **Styling**: Vanilla CSS
+- **Hosting**: [Netlify](https://netlify.app)
+
+---
+
+## 📦 Getting Started
+
+### 🔧 Installation
+
+```bash
+git clone https://github.com/your-username/pokemon-arena.git
+cd pokemon-arena
+npm install
+npm run dev
