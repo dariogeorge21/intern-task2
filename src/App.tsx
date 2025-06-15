@@ -31,10 +31,17 @@ function App() {
   async function multiFetch() {
     setAllStats([]);
     setErrorMessage('');
-
-    const fetches = Array.from({ length: 36 }, async () => {
+    const randomIdArray: number[] = [];
+    while (randomIdArray.length < 36) {
       const randomNumber = Math.floor(Math.random() * 151) + 1;
+      if (!randomIdArray.includes(randomNumber)) {
+      randomIdArray.push(randomNumber);
+      }
+    }
 
+
+    const fetches = randomIdArray.map(async (randomNumber) => {
+    
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomNumber}`);
         if (!response.ok) throw new Error('Failed to fetch data from API!');
@@ -102,6 +109,14 @@ function App() {
           specialDefense: data.stats[4].base_stat,
           speed: data.stats[5].base_stat
         };
+        
+        for (let element = 0; element < benchmarkPokemon.length; element++) {
+          if (benchmarkPokemon[element].id === compareStats.id) {
+            alert("Aldready Added!!");
+            return ;
+          }
+        }
+
         setBenchmarkPokemon(prev => [...prev, compareStats]);
 
 
