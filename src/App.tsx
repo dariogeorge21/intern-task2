@@ -10,6 +10,7 @@ function App() {
   const [benchmarkPokemon, setBenchmarkPokemon] = useState<PokemonStatsType[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
+  const [selectedType, setSelectedType] = useState<string>(''); 
   const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
   });
@@ -152,8 +153,12 @@ function App() {
 });
 
   const filteredStats = allStats.filter(pokemon =>
-  pokemon.name.toLowerCase().includes(query.toLowerCase())
-  );
+  pokemon.name.toLowerCase().includes(query.toLowerCase()) &&
+  (selectedType === '' || pokemon.type === selectedType)
+);
+
+  const uniqueTypes = Array.from(new Set(allStats.map(pokemon => pokemon.type))).sort();
+
 
   return (
     <>
@@ -208,13 +213,27 @@ function App() {
         <h2 >Pokemon Arena</h2>
       </div>
       
-      <input
+      <div>
+        <input
         type="text"
         placeholder="Search pokemons..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="search-bar"
       />
+      <select
+        value={selectedType}
+        onChange={(e) => setSelectedType(e.target.value)}
+        className="type-dropdown">
+        <option value="">All Types</option>
+        {uniqueTypes.map((type) => (
+          <option key={type} value={type}>
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </option>
+        ))}
+      </select>
+      </div>
+
       <button className="button" onClick={multiFetch}>Randomize</button>
       {(loading)? '':<div className='subHead' >Loading...</div>}
     
