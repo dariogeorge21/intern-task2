@@ -1,18 +1,37 @@
-* {
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #000000;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  line-height: 1.6;
+  height: 100vh;
+  padding: 0rem;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+
+}
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   line-height: 1.6;
-  color: white;
 }
 
-body {
+/* body {
   height: 100vh;
   padding: 0rem;
-  background-color: #4b4040;
+  background-color: #000000;
   color: #000;
-}
+} */
+
+
 
 .heading {
   font-size: 2rem;
@@ -38,7 +57,7 @@ body {
 .statsBoard {
   width: 100%;
   max-width: 900px;
-  border: 1px solid white;
+
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.1);
   padding: 1rem;
@@ -54,9 +73,10 @@ body {
 .allStats p {
   margin: 0.5rem;
   padding: 0.5rem 1rem;
-  border: 1px solid white;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(102, 90, 90, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
 }
 
 .benchmarkContainer,
@@ -70,7 +90,7 @@ body {
 
 .benchmarkCard, .arenaCard {
   background: rgba(255, 255, 255, 0.1);
-  color: white;
+
   width: 260px;
   min-height: 100px;
   padding: 1rem;
@@ -86,7 +106,7 @@ body {
 
 .button {
   background: #5b9df9;
-  color: white;
+
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
@@ -110,7 +130,6 @@ body {
 
 .hr {
   height: 2px;
-  background: #000;
   margin: 1rem 0;
   border: none;
 }
@@ -120,8 +139,7 @@ body {
   margin-top: 60px;
 }
 .footer{
-    background-color: #000000;
-    color: #333;
+
     text-align: center;
     padding: 10px 0;
     width: 100%;
@@ -137,4 +155,22 @@ body {
 }
 .footer a:hover{
     text-decoration: underline;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.right {
+  display: flex;
+  gap: 10px;
 }

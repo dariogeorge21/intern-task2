@@ -8,12 +8,26 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
   const [allStats, setAllStats] = useState<PokemonStatsType[]>([]);
   const [benchmarkPokemon, setBenchmarkPokemon] = useState<PokemonStatsType[]>([]);
+  const [isDark, setIsDark] = useState(() => {
+    return localStorage.getItem('theme') === 'dark';
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle('dark', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
+
+  const toggleTheme = () => {
+    setIsDark(prev => !prev);
+  };
 
   function reset() {
   setAllStats([]);
   setBenchmarkPokemon([]);
   multiFetch();
 }
+
+  
   async function multiFetch() {
     setAllStats([]);
     setErrorMessage('');
@@ -73,6 +87,8 @@ function App() {
 
         const data: any = await response.json();
 
+    
+
         const compareStats: PokemonStatsType = {
           id: data.id,
           sprite: data.sprites.front_default,
@@ -123,7 +139,15 @@ function App() {
 
   return (
     <>
-      <Header/>
+      <div className="header">
+        <div className="nav-left"></div>
+        <div className="center">
+          <Header/>
+        </div>
+        <div className="right">
+          <button className="button" onClick={toggleTheme}>Switch to {isDark ? 'Light' : 'Dark'} Mode</button>
+        </div>
+      </div>
       <hr className='hr' />
       {benchmarkPokemon.length > 0 ? <div className="statsSection">
         <div className="statsBoard">
