@@ -11,6 +11,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>(''); 
+  const [recentlyAddedId, setRecentlyAddedId] = useState<number | null>(null);
   const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
   });
@@ -268,7 +269,17 @@ function App() {
             <p>Height: {pokemon.height}</p>
             <p>Weight: {pokemon.weight}</p>
             <br />
-            <button onClick={() => addToBenchmark(pokemon.id) } className="button">Add to Compare</button>
+            <button
+              onClick={async () => {
+                await addToBenchmark(pokemon.id);
+                setRecentlyAddedId(pokemon.id);
+                setTimeout(() => setRecentlyAddedId(null), 100000);
+              }}
+              className="button"
+              disabled={recentlyAddedId === pokemon.id}
+            >
+              {recentlyAddedId === pokemon.id ? "Added" : "Add to Compare"}
+            </button>
           </div>
         ))}
         {errorMessage && <p className='errorContainer'>Error: {errorMessage}</p>}
