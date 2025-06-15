@@ -27,6 +27,7 @@ function App() {
   function reset() {
   setAllStats([]);
   setBenchmarkPokemon([]);
+  localStorage.removeItem('benchmarkPokemon'); 
   multiFetch();
   }
 
@@ -150,14 +151,24 @@ function App() {
   totals.totalSpecialAttack += pokemon.specialAttack;
   totals.totalSpecialDefense += pokemon.specialDefense;
   totals.totalSpeed += pokemon.speed;
-});
+  });
 
   const filteredStats = allStats.filter(pokemon =>
   pokemon.name.toLowerCase().includes(query.toLowerCase()) &&
   (selectedType === '' || pokemon.type === selectedType)
-);
+  );
 
   const uniqueTypes = Array.from(new Set(allStats.map(pokemon => pokemon.type))).sort();
+
+  useEffect(() => {
+  const savedTeam = localStorage.getItem('benchmarkPokemon');
+  if (savedTeam) {
+    setBenchmarkPokemon(JSON.parse(savedTeam));
+  }}, []);
+  useEffect(() => {
+  localStorage.setItem('benchmarkPokemon', JSON.stringify(benchmarkPokemon));
+}, [benchmarkPokemon]);
+
 
 
   return (
