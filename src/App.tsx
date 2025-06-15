@@ -192,6 +192,7 @@ function App() {
         {benchmarkPokemon.map((pokemon,index) => (
           <div key={index} className="benchmarkCard">
             <p hidden>Id: {pokemon.id}</p>
+            <p className='tag'>{pokemon.type}</p>
             <img src={pokemon.sprite} alt="sprite" />
             <h2>{pokemon.name}</h2>
             <p>HP: {pokemon.hp}</p>
