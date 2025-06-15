@@ -15,6 +15,7 @@ function App() {
     return localStorage.getItem('theme') === 'dark';
   });
 
+  // Theme func
   useEffect(() => {
     document.body.classList.toggle('dark', isDark);
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
@@ -24,6 +25,7 @@ function App() {
     setIsDark(prev => !prev);
   };
 
+  //reset button func
   function reset() {
   setAllStats([]);
   setBenchmarkPokemon([]);
@@ -31,6 +33,7 @@ function App() {
   multiFetch();
   }
 
+  // fetch data for the arena
   async function multiFetch() {
     setLoading(false);
     setAllStats([]);
@@ -87,6 +90,8 @@ function App() {
     multiFetch();
   }, []);
 
+
+  //fetch data for the benchmark using the id from arena
   async function addToBenchmark(id:number) {
     if ((benchmarkPokemon.length)>5){
       alert("You can only add upto 6 cards!!");
@@ -129,7 +134,7 @@ function App() {
     }
   }
 
-  
+  //calculates the stats..
 
   const totals = {
     totalHeight: 0,
@@ -153,6 +158,7 @@ function App() {
   totals.totalSpeed += pokemon.speed;
   });
 
+  //search and filter based on type functionality
   const filteredStats = allStats.filter(pokemon =>
   pokemon.name.toLowerCase().includes(query.toLowerCase()) &&
   (selectedType === '' || pokemon.type === selectedType)
@@ -160,6 +166,7 @@ function App() {
 
   const uniqueTypes = Array.from(new Set(allStats.map(pokemon => pokemon.type))).sort();
 
+  // localStorage for benchmark data
   useEffect(() => {
   const savedTeam = localStorage.getItem('benchmarkPokemon');
   if (savedTeam) {
